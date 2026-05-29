@@ -1,0 +1,1384 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>動詞過去式全圖鑑特訓</title>
+    <style>
+      :root { color-scheme: light; --ink:#101935; --muted:#53627a; --line:#dce3f1; --paper:#fff; --soft:#f7f9fd; --brand:#4f46e5; --brand-dark:#3730a3; --brand-soft:#e8eaff; --good:#15805b; --good-soft:#e9f8f1; --bad:#c2413d; --bad-soft:#fff0ef; --shadow:0 18px 42px rgba(22,30,54,.16); }
+      * { box-sizing: border-box; }
+      body { margin:0; min-height:100vh; background:#f2f5f9; color:var(--ink); font-family:"Segoe UI","Noto Sans TC",Arial,sans-serif; }
+      button,input { font:inherit; } button { border:0; cursor:pointer; }
+      .wrap { width:min(1120px,calc(100% - 28px)); margin:0 auto; padding:28px 0 40px; }
+      .hero { padding:28px; border-radius:8px 8px 34px 34px; background:var(--paper); border-bottom:9px solid var(--brand); box-shadow:var(--shadow); text-align:center; }
+      .hero h1 { margin:0 0 10px; color:var(--brand-dark); font-size:clamp(30px,4.8vw,46px); line-height:1.08; letter-spacing:0; }
+      .hero p { width:min(720px,100%); margin:0 auto 24px; color:var(--muted); font-size:16px; line-height:1.55; }
+      .name-box { display:grid; gap:8px; width:min(380px,100%); margin:0 auto; padding:14px; border:1px solid #cfd8ff; border-radius:8px; background:#f7f8ff; }
+      .label { color:var(--brand); font-size:13px; font-weight:800; }
+      .name-box input { width:100%; height:54px; border:0; border-bottom:3px solid #aab2f6; background:#fff; color:var(--ink); font-size:20px; font-weight:800; text-align:center; outline:0; }
+      .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; margin-top:36px; }
+      .section-card { min-height:235px; display:grid; align-content:space-between; gap:18px; padding:28px; border-radius:8px; background:var(--paper); box-shadow:var(--shadow); text-align:left; }
+      .section-card h2 { margin:12px 0 8px; font-size:23px; line-height:1.25; } .section-card p { margin:0; color:var(--muted); line-height:1.5; }
+      .card-icon { width:56px; height:56px; display:grid; place-items:center; border-radius:8px; background:var(--brand-soft); color:var(--brand); font-size:25px; font-weight:900; }
+      .card-foot { display:flex; align-items:center; justify-content:space-between; gap:12px; color:var(--brand); font-size:14px; font-weight:800; }
+      .quiz-shell { display:none; } .quiz-shell.active { display:grid; gap:20px; }
+      .quiz-top { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:16px; align-items:center; padding:18px 20px; border-radius:8px; background:var(--paper); box-shadow:var(--shadow); }
+      .quiz-title { margin:0; font-size:24px; } .quiz-meta { margin:4px 0 0; color:var(--muted); } .score-row { display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+      .pill { min-height:34px; display:inline-flex; align-items:center; border-radius:999px; padding:0 12px; background:var(--brand-soft); color:var(--brand-dark); font-size:14px; font-weight:900; }
+      .progress { height:10px; overflow:hidden; border-radius:999px; background:#dde4f2; } .progress span { display:block; width:0%; height:100%; background:var(--brand); transition:width .25s ease; }
+      .question-card,.result-card { padding:28px; border-radius:8px; background:var(--paper); box-shadow:var(--shadow); }
+      .verb-tag { display:inline-flex; min-height:48px; align-items:center; border:1px solid #cdd5ff; border-radius:8px; padding:0 18px; background:var(--brand-soft); color:var(--brand-dark); font-size:22px; font-weight:900; }
+      .sentence-box { margin-top:20px; padding:20px; border:1px solid var(--line); border-radius:8px; background:var(--soft); }
+      .sentence-label { margin-bottom:10px; color:var(--muted); font-size:14px; font-weight:800; }
+      .sentence { display:flex; flex-wrap:wrap; align-items:baseline; gap:8px; color:#07152f; font-size:clamp(24px,3.8vw,34px); line-height:1.45; }
+      .blank { width:150px; min-width:120px; height:48px; border:0; border-bottom:4px solid #aeb6f5; background:#fff; color:var(--ink); padding:0 10px; font-size:24px; font-weight:800; text-align:center; outline:0; }
+      .blank.correct { border-color:var(--good); background:var(--good-soft); } .blank.wrong { border-color:var(--bad); background:var(--bad-soft); }
+      .zh { margin:10px 0 0; color:var(--muted); font-size:16px; }
+      .feedback { min-height:48px; margin-top:18px; padding:14px 16px; border-radius:8px; background:#eef2ff; color:var(--brand-dark); font-weight:800; line-height:1.45; }
+      .feedback.good { background:var(--good-soft); color:var(--good); } .feedback.bad { background:var(--bad-soft); color:var(--bad); }
+      .actions { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:10px; margin-top:20px; }
+      .btn { min-height:48px; border-radius:8px; padding:0 18px; font-weight:900; } .primary { background:var(--brand); color:#fff; } .primary:hover { background:var(--brand-dark); } .secondary { border:1px solid var(--line); background:#fff; color:var(--ink); } .listen { background:#102238; color:#fff; } .btn:disabled { cursor:not-allowed; opacity:.48; }
+      .result-card { display:none; } .result-card.active { display:block; } .result-score { margin:8px 0 10px; font-size:52px; font-weight:900; color:var(--brand-dark); } .wrong-list { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; } .wrong-list span { border-radius:999px; padding:8px 12px; background:var(--bad-soft); color:var(--bad); font-weight:800; } .status { color:var(--muted); line-height:1.5; }
+      @media (max-width:900px) { .grid { grid-template-columns:1fr; } .quiz-top { grid-template-columns:1fr; } .score-row { justify-content:flex-start; } .question-card,.result-card,.hero { padding:20px; } }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <section id="home" class="home">
+        <header class="hero">
+          <h1>動詞過去式全圖鑑特訓</h1>
+          <p>請輸入姓名，選擇下方任意區塊進行挑戰。每題包含 WH 問句（填原形）與直述句（填過去式），作答後可以聽美式英文朗讀。</p>
+          <label class="name-box"><span class="label">學生姓名（必填）</span><input id="studentName" autocomplete="name" placeholder="Your name"></label>
+        </header>
+        <div id="sectionGrid" class="grid"></div>
+      </section>
+      <section id="quizShell" class="quiz-shell">
+        <div class="quiz-top"><div><h2 id="quizTitle" class="quiz-title"></h2><p id="quizMeta" class="quiz-meta"></p></div><div class="score-row"><span id="questionCount" class="pill">0/0</span><span id="scoreCount" class="pill">Correct 0</span><button id="backBtn" class="btn secondary" type="button">Sections</button></div></div>
+        <div class="progress"><span id="progressBar"></span></div>
+        <article class="question-card">
+          <div id="verbTag" class="verb-tag"></div>
+          <div class="sentence-box"><div class="sentence-label">1. WH 問句（填原形動詞）</div><div id="qSentence" class="sentence"></div><p id="qZh" class="zh"></p></div>
+          <div class="sentence-box"><div class="sentence-label">2. 直述回答（填過去式）</div><div id="aSentence" class="sentence"></div><p id="aZh" class="zh"></p></div>
+          <div id="feedback" class="feedback">填完兩格後按「檢查答案」。</div>
+          <div class="actions"><button id="checkBtn" class="btn primary" type="button">檢查答案</button><button id="listenQBtn" class="btn listen" type="button" disabled>聽問句</button><button id="listenABtn" class="btn listen" type="button" disabled>聽回答</button><button id="nextBtn" class="btn primary" type="button" disabled>下一題</button></div>
+        </article>
+        <article id="resultCard" class="result-card"><p class="label">Result</p><h2>測驗完成</h2><div id="resultScore" class="result-score"></div><p id="resultDetail" class="status"></p><p class="label">Wrong verbs</p><div id="wrongList" class="wrong-list"></div><div class="actions"><button id="submitBtn" class="btn primary" type="button">Submit to spreadsheet</button><button id="retryBtn" class="btn secondary" type="button">Retry section</button><button id="homeBtn" class="btn secondary" type="button">Choose another section</button></div><p id="submitStatus" class="status"></p></article>
+      </section>
+    </div>
+    <script>
+      const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyOPob_ZlNbc2sPNETVklnYGUEaqyTTMl5ylSqYjdjhdFeWxQQ3_tTte2moPdyNCuCinA/exec";
+      const SHEET_ID = "1OBjL_J5zE52ybzCbWwldXDjWyRoTl3gl1JGBzaEVfSk";
+      const QUIZ_DATA = [
+  {
+    "id": 1,
+    "section": "A",
+    "sectionTitle": "(A) \u5b57\u5c3e y \u8b8a\u5316\u578b",
+    "base": "cry",
+    "past": "cried",
+    "zh": "\u54ed\u6ce3",
+    "qEn": "Why did he ______ yesterday?",
+    "qZh": "\u4ed6\u6628\u5929\u70ba\u4f55\u54ed\u6ce3\uff1f",
+    "aEn": "He ______ yesterday because he lost the important game.",
+    "aZh": "\u4ed6\u6628\u5929\u54ed\u6ce3\u56e0\u70ba\u4ed6\u8f38\u4e86\u9019\u5834\u91cd\u8981\u7684\u6bd4\u8cfd\u3002"
+  },
+  {
+    "id": 2,
+    "section": "A",
+    "sectionTitle": "(A) \u5b57\u5c3e y \u8b8a\u5316\u578b",
+    "base": "hurry",
+    "past": "hurried",
+    "zh": "\u8d95\u5feb",
+    "qEn": "Why did she ______ last Monday?",
+    "qZh": "\u5979\u4e0a\u9031\u4e00\u70ba\u4f55\u8d95\u5feb\uff1f",
+    "aEn": "She ______ last Monday because she was late for school.",
+    "aZh": "\u5979\u4e0a\u9031\u4e00\u8d95\u5feb\u56e0\u70ba\u5979\u4e0a\u5b78\u9072\u5230\u4e86\u3002"
+  },
+  {
+    "id": 3,
+    "section": "A",
+    "sectionTitle": "(A) \u5b57\u5c3e y \u8b8a\u5316\u578b",
+    "base": "study",
+    "past": "studied",
+    "zh": "\u7814\u8b80",
+    "qEn": "Where did they ______ last night?",
+    "qZh": "\u4ed6\u5011\u6628\u665a\u5728\u54ea\u88e1\u7814\u8b80\uff1f",
+    "aEn": "They ______ in the library last night.",
+    "aZh": "\u4ed6\u5011\u6628\u665a\u5728\u5716\u66f8\u9928\u7814\u8b80\u3002"
+  },
+  {
+    "id": 4,
+    "section": "A",
+    "sectionTitle": "(A) \u5b57\u5c3e y \u8b8a\u5316\u578b",
+    "base": "try",
+    "past": "tried",
+    "zh": "\u5617\u8a66",
+    "qEn": "What did you ______ to do two days ago?",
+    "qZh": "\u4f60\u5169\u5929\u524d\u5617\u8a66\u505a\u4ec0\u9ebc\uff1f",
+    "aEn": "I ______ to fix my computer two days ago.",
+    "aZh": "\u6211\u5169\u5929\u524d\u5617\u8a66\u4fee\u7406\u6211\u7684\u96fb\u8166\u3002"
+  },
+  {
+    "id": 5,
+    "section": "A",
+    "sectionTitle": "(A) \u5b57\u5c3e y \u8b8a\u5316\u578b",
+    "base": "worry",
+    "past": "worried",
+    "zh": "\u64d4\u5fc3",
+    "qEn": "Why did the mother ______ during the COVID?",
+    "qZh": "\u5abd\u5abd\u5728\u65b0\u51a0\u75ab\u60c5\u671f\u9593\u70ba\u4f55\u64d4\u5fc3\uff1f",
+    "aEn": "She ______ during the COVID because her son was sick.",
+    "aZh": "\u5979\u5728\u65b0\u51a0\u75ab\u60c5\u671f\u9593\u64d4\u5fc3\u56e0\u70ba\u5979\u5152\u5b50\u751f\u75c5\u4e86\u3002"
+  },
+  {
+    "id": 6,
+    "section": "A",
+    "sectionTitle": "(A) \u5b57\u5c3e y \u8b8a\u5316\u578b",
+    "base": "play",
+    "past": "played",
+    "zh": "\u73a9",
+    "qEn": "What did they ______ last weekend?",
+    "qZh": "\u4ed6\u5011\u4e0a\u9031\u672b\u73a9\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "They ______ basketball in the park last weekend.",
+    "aZh": "\u4ed6\u5011\u4e0a\u9031\u672b\u5728\u516c\u5712\u6253\u7c43\u7403\u3002"
+  },
+  {
+    "id": 7,
+    "section": "A",
+    "sectionTitle": "(A) \u5b57\u5c3e y \u8b8a\u5316\u578b",
+    "base": "obey",
+    "past": "obeyed",
+    "zh": "\u9075\u5b88",
+    "qEn": "Why did you ______ the rules in 2020?",
+    "qZh": "\u4f60 2020 \u5e74\u70ba\u4f55\u9075\u5b88\u898f\u5247\uff1f",
+    "aEn": "I ______ the rules in 2020 because they are important.",
+    "aZh": "\u6211 2020 \u5e74\u9075\u5b88\u898f\u5247\u56e0\u70ba\u5b83\u5011\u5f88\u91cd\u8981\u3002"
+  },
+  {
+    "id": 8,
+    "section": "A",
+    "sectionTitle": "(A) \u5b57\u5c3e y \u8b8a\u5316\u578b",
+    "base": "stay",
+    "past": "stayed",
+    "zh": "\u505c\u7559",
+    "qEn": "Where did he ______ the day before yesterday?",
+    "qZh": "\u4ed6\u524d\u5929\u5f85\u5728\u54ea\u88e1\uff1f",
+    "aEn": "He ______ at home all day the day before yesterday.",
+    "aZh": "\u4ed6\u524d\u5929\u6574\u5929\u5f85\u5728\u5bb6\u3002"
+  },
+  {
+    "id": 9,
+    "section": "A",
+    "sectionTitle": "(A) \u5b57\u5c3e y \u8b8a\u5316\u578b",
+    "base": "delay",
+    "past": "delayed",
+    "zh": "\u5ef6\u9072",
+    "qEn": "Why did they ______ the meeting last week?",
+    "qZh": "\u4ed6\u5011\u4e0a\u9031\u70ba\u4f55\u5ef6\u9072\u6703\u8b70\uff1f",
+    "aEn": "They ______ it last week because of the heavy rain.",
+    "aZh": "\u4ed6\u5011\u4e0a\u9031\u56e0\u70ba\u5927\u96e8\u800c\u5ef6\u9072\u4e86\u5b83\u3002"
+  },
+  {
+    "id": 10,
+    "section": "A",
+    "sectionTitle": "(A) \u5b57\u5c3e y \u8b8a\u5316\u578b",
+    "base": "pray",
+    "past": "prayed",
+    "zh": "\u7948\u79b1",
+    "qEn": "Why did the old man ______ three hours ago?",
+    "qZh": "\u8001\u4eba\u4e09\u5c0f\u6642\u524d\u70ba\u4f55\u7948\u79b1\uff1f",
+    "aEn": "He ______ for good health three hours ago.",
+    "aZh": "\u4ed6\u4e09\u5c0f\u6642\u524d\u70ba\u4e86\u5065\u5eb7\u800c\u7948\u79b1\u3002"
+  },
+  {
+    "id": 11,
+    "section": "A",
+    "sectionTitle": "(A) \u5b57\u5c3e y \u8b8a\u5316\u578b",
+    "base": "display",
+    "past": "displayed",
+    "zh": "\u5c55\u793a",
+    "qEn": "Where did she ______ her pictures last year?",
+    "qZh": "\u5979\u53bb\u5e74\u5728\u54ea\u88e1\u5c55\u793a\u5979\u7684\u7167\u7247\uff1f",
+    "aEn": "She ______ them in the museum last year.",
+    "aZh": "\u5979\u53bb\u5e74\u5728\u535a\u7269\u9928\u5c55\u793a\u4e86\u5b83\u5011\u3002"
+  },
+  {
+    "id": 12,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "chat",
+    "past": "chatted",
+    "zh": "\u804a\u5929",
+    "qEn": "Who did you ______ with last night?",
+    "qZh": "\u4f60\u6628\u665a\u548c\u8ab0\u804a\u5929\uff1f",
+    "aEn": "I ______ with my best friend last night.",
+    "aZh": "\u6211\u6628\u665a\u548c\u6211\u6700\u597d\u7684\u670b\u53cb\u804a\u5929\u3002"
+  },
+  {
+    "id": 13,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "jog",
+    "past": "jogged",
+    "zh": "\u6162\u8dd1",
+    "qEn": "Where did she ______ yesterday morning?",
+    "qZh": "\u5979\u6628\u5929\u65e9\u4e0a\u5728\u54ea\u88e1\u6162\u8dd1\uff1f",
+    "aEn": "She ______ along the river yesterday morning.",
+    "aZh": "\u5979\u6628\u5929\u65e9\u4e0a\u6cbf\u8457\u6cb3\u908a\u6162\u8dd1\u3002"
+  },
+  {
+    "id": 14,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "mop",
+    "past": "mopped",
+    "zh": "\u62d6\u5730",
+    "qEn": "Why did he ______ the floor two hours ago?",
+    "qZh": "\u4ed6\u5169\u5c0f\u6642\u524d\u70ba\u4f55\u62d6\u5730\uff1f",
+    "aEn": "He ______ the floor two hours ago because it was dirty.",
+    "aZh": "\u4ed6\u5169\u5c0f\u6642\u524d\u62d6\u5730\u56e0\u70ba\u5b83\u5f88\u9ad2\u3002"
+  },
+  {
+    "id": 15,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "picnic",
+    "past": "picnicked",
+    "zh": "\u91ce\u9910",
+    "qEn": "Where did they ______ last Sunday?",
+    "qZh": "\u4ed6\u5011\u4e0a\u9031\u65e5\u5728\u54ea\u88e1\u91ce\u9910\uff1f",
+    "aEn": "They ______ under a big tree last Sunday.",
+    "aZh": "\u4ed6\u5011\u4e0a\u9031\u65e5\u5728\u4e00\u68f5\u5927\u6a39\u4e0b\u91ce\u9910\u3002"
+  },
+  {
+    "id": 16,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "plan",
+    "past": "planned",
+    "zh": "\u8a08\u756b",
+    "qEn": "What did you ______ in 2019?",
+    "qZh": "\u4f60 2019 \u5e74\u8a08\u756b\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "I ______ a trip to Japan in 2019.",
+    "aZh": "\u6211 2019 \u5e74\u8a08\u756b\u4e86\u4e00\u8d9f\u65e5\u672c\u4e4b\u65c5\u3002"
+  },
+  {
+    "id": 17,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "shop",
+    "past": "shopped",
+    "zh": "\u8cfc\u7269",
+    "qEn": "Where did Mary ______ the day before yesterday?",
+    "qZh": "\u746a\u9e97\u524d\u5929\u5728\u54ea\u88e1\u8cfc\u7269\uff1f",
+    "aEn": "She ______ at the new mall the day before yesterday.",
+    "aZh": "\u5979\u524d\u5929\u5728\u65b0\u8cfc\u7269\u4e2d\u5fc3\u8cfc\u7269\u3002"
+  },
+  {
+    "id": 18,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "skip",
+    "past": "skipped",
+    "zh": "\u7565\u904e",
+    "qEn": "Why did he ______ breakfast yesterday?",
+    "qZh": "\u4ed6\u6628\u5929\u70ba\u4f55\u7565\u904e\u65e9\u9910\uff1f",
+    "aEn": "He ______ it yesterday because he got up late.",
+    "aZh": "\u4ed6\u6628\u5929\u7565\u904e\u5b83\u56e0\u70ba\u4ed6\u665a\u8d77\u4e86\u3002"
+  },
+  {
+    "id": 19,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "stop",
+    "past": "stopped",
+    "zh": "\u505c\u6b62",
+    "qEn": "Why did the bus ______ a few minutes ago?",
+    "qZh": "\u516c\u8eca\u5e7e\u5206\u9418\u524d\u70ba\u4f55\u505c\u6b62\uff1f",
+    "aEn": "It ______ for the old lady a few minutes ago.",
+    "aZh": "\u5b83\u5e7e\u5206\u9418\u524d\u70ba\u4e86\u90a3\u4f4d\u8001\u592a\u592a\u800c\u505c\u6b62\u3002"
+  },
+  {
+    "id": 20,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "open",
+    "past": "opened",
+    "zh": "\u6253\u958b",
+    "qEn": "Why did you ______ the window last night?",
+    "qZh": "\u4f60\u6628\u665a\u70ba\u4f55\u6253\u958b\u7a97\u6236\uff1f",
+    "aEn": "I ______ it last night because it was too hot.",
+    "aZh": "\u6211\u6628\u665a\u6253\u958b\u5b83\u56e0\u70ba\u592a\u71b1\u4e86\u3002"
+  },
+  {
+    "id": 21,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "edit",
+    "past": "edited",
+    "zh": "\u7de8\u8f2f",
+    "qEn": "What did he ______ last week?",
+    "qZh": "\u4ed6\u4e0a\u9031\u7de8\u8f2f\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "He ______ a video for his homework last week.",
+    "aZh": "\u4ed6\u4e0a\u9031\u70ba\u4ed6\u7684\u529f\u8ab2\u7de8\u8f2f\u4e86\u4e00\u90e8\u5f71\u7247\u3002"
+  },
+  {
+    "id": 22,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "listen",
+    "past": "listened",
+    "zh": "\u807d",
+    "qEn": "What did she ______ to yesterday afternoon?",
+    "qZh": "\u5979\u6628\u5929\u4e0b\u5348\u807d\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "She ______ to some pop music yesterday afternoon.",
+    "aZh": "\u5979\u6628\u5929\u4e0b\u5348\u807d\u4e86\u4e00\u4e9b\u6d41\u884c\u97f3\u6a02\u3002"
+  },
+  {
+    "id": 23,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "happen",
+    "past": "happened",
+    "zh": "\u767c\u751f",
+    "qEn": "Where did the accident ______ during the COVID?",
+    "qZh": "\u610f\u5916\u5728\u65b0\u51a0\u75ab\u60c5\u671f\u9593\u767c\u751f\u5728\u54ea\u88e1\uff1f",
+    "aEn": "It ______ near the hospital during the COVID.",
+    "aZh": "\u5b83\u5728\u65b0\u51a0\u75ab\u60c5\u671f\u9593\u767c\u751f\u5728\u91ab\u9662\u9644\u8fd1\u3002"
+  },
+  {
+    "id": 24,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "visit",
+    "past": "visited",
+    "zh": "\u62dc\u8a2a",
+    "qEn": "Who did they ______ last summer?",
+    "qZh": "\u4ed6\u5011\u53bb\u5e74\u590f\u5929\u62dc\u8a2a\u4e86\u8ab0\uff1f",
+    "aEn": "They ______ their grandparents last summer.",
+    "aZh": "\u4ed6\u5011\u53bb\u5e74\u590f\u5929\u62dc\u8a2a\u4e86\u4ed6\u5011\u7684\u7956\u7236\u6bcd\u3002"
+  },
+  {
+    "id": 25,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "limit",
+    "past": "limited",
+    "zh": "\u9650\u5236",
+    "qEn": "Why did the store ______ the time in 2020?",
+    "qZh": "\u9019\u9593\u5e97 2020 \u5e74\u70ba\u4f55\u9650\u5236\u6642\u9593\uff1f",
+    "aEn": "They ______ the time to two hours in 2020.",
+    "aZh": "\u4ed6\u5011 2020 \u5e74\u5c07\u6642\u9593\u9650\u5236\u5728\u5169\u5c0f\u6642\u3002"
+  },
+  {
+    "id": 26,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "iron",
+    "past": "ironed",
+    "zh": "\u71a8\u71d9",
+    "qEn": "Why did you ______ the shirt last Sunday?",
+    "qZh": "\u4f60\u4e0a\u9031\u65e5\u70ba\u4f55\u71d9\u9019\u4ef6\u896f\u886b\uff1f",
+    "aEn": "I ______ the shirt last Sunday because I needed it.",
+    "aZh": "\u6211\u4e0a\u9031\u65e5\u71d9\u9019\u4ef6\u896f\u886b\u56e0\u70ba\u6211\u9700\u8981\u5b83\u3002"
+  },
+  {
+    "id": 27,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "enter",
+    "past": "entered",
+    "zh": "\u9032\u5165",
+    "qEn": "Where did he ______ yesterday?",
+    "qZh": "\u4ed6\u6628\u5929\u9032\u5165\u54ea\u88e1\uff1f",
+    "aEn": "He ______ the classroom yesterday.",
+    "aZh": "\u4ed6\u6628\u5929\u9032\u5165\u4e86\u6559\u5ba4\u3002"
+  },
+  {
+    "id": 28,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "offer",
+    "past": "offered",
+    "zh": "\u63d0\u4f9b",
+    "qEn": "What did the store ______ last week?",
+    "qZh": "\u9019\u9593\u5e97\u4e0a\u9031\u63d0\u4f9b\u4ec0\u9ebc\uff1f",
+    "aEn": "It ______ free coffee last week.",
+    "aZh": "\u5b83\u4e0a\u9031\u63d0\u4f9b\u4e86\u514d\u8cbb\u5496\u5561\u3002"
+  },
+  {
+    "id": 29,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "answer",
+    "past": "answered",
+    "zh": "\u56de\u7b54",
+    "qEn": "Why did you ______ the phone a few minutes ago?",
+    "qZh": "\u4f60\u5e7e\u5206\u9418\u524d\u70ba\u4f55\u63a5\u96fb\u8a71\uff1f",
+    "aEn": "I ______ it a few minutes ago because it was my mom.",
+    "aZh": "\u6211\u5e7e\u5206\u9418\u524d\u63a5\u5b83\u56e0\u70ba\u662f\u6211\u5abd\u5abd\u3002"
+  },
+  {
+    "id": 30,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "order",
+    "past": "ordered",
+    "zh": "\u8a02\u8cfc",
+    "qEn": "What did they ______ last night?",
+    "qZh": "\u4ed6\u5011\u6628\u665a\u8a02\u8cfc\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "They ______ a big pizza last night.",
+    "aZh": "\u4ed6\u5011\u6628\u665a\u8a02\u8cfc\u4e86\u4e00\u500b\u5927\u62ab\u85a9\u3002"
+  },
+  {
+    "id": 31,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "deliver",
+    "past": "delivered",
+    "zh": "\u905e\u9001",
+    "qEn": "Where did the man ______ the box yesterday?",
+    "qZh": "\u90a3\u7537\u4eba\u6628\u5929\u5c07\u76d2\u5b50\u905e\u9001\u5230\u54ea\u88e1\uff1f",
+    "aEn": "He ______ it to my house yesterday.",
+    "aZh": "\u4ed6\u6628\u5929\u5c07\u5b83\u905e\u9001\u5230\u6211\u5bb6\u3002"
+  },
+  {
+    "id": 32,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "mix",
+    "past": "mixed",
+    "zh": "\u6df7\u5408",
+    "qEn": "Why did she ______ the colors two days ago?",
+    "qZh": "\u5979\u5169\u5929\u524d\u70ba\u4f55\u6df7\u5408\u9019\u4e9b\u984f\u8272\uff1f",
+    "aEn": "She ______ them two days ago to paint the sky.",
+    "aZh": "\u5979\u5169\u5929\u524d\u6df7\u5408\u5b83\u5011\u4f86\u756b\u5929\u7a7a\u3002"
+  },
+  {
+    "id": 33,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "fix",
+    "past": "fixed",
+    "zh": "\u4fee\u7406",
+    "qEn": "What did your dad ______ last Sunday?",
+    "qZh": "\u4f60\u7238\u7238\u4e0a\u9031\u65e5\u4fee\u7406\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "He ______ my broken bike last Sunday.",
+    "aZh": "\u4ed6\u4e0a\u9031\u65e5\u4fee\u7406\u4e86\u6211\u58de\u6389\u7684\u8173\u8e0f\u8eca\u3002"
+  },
+  {
+    "id": 34,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "relax",
+    "past": "relaxed",
+    "zh": "\u653e\u9b06",
+    "qEn": "Where did you ______ during the COVID?",
+    "qZh": "\u4f60\u5728\u65b0\u51a0\u75ab\u60c5\u671f\u9593\u5728\u54ea\u88e1\u653e\u9b06\uff1f",
+    "aEn": "I ______ at home all day during the COVID.",
+    "aZh": "\u6211\u5728\u65b0\u51a0\u75ab\u60c5\u671f\u9593\u6574\u5929\u5728\u5bb6\u653e\u9b06\u3002"
+  },
+  {
+    "id": 35,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "snow",
+    "past": "snowed",
+    "zh": "\u4e0b\u96ea",
+    "qEn": "Where did it ______ heavily in 2020? 2020",
+    "qZh": "\u5e74\u54ea\u88e1\u4e0b\u4e86\u5927\u96ea\uff1f",
+    "aEn": "It ______ in the mountains in 2020. 2020",
+    "aZh": "\u5e74\u5c71\u4e0a\u4e0b\u4e86\u96ea\u3002"
+  },
+  {
+    "id": 36,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "show",
+    "past": "showed",
+    "zh": "\u5c55\u793a",
+    "qEn": "What did the teacher ______ the class the day before yesterday?",
+    "qZh": "\u8001\u5e2b\u524d\u5929\u5411\u73ed\u4e0a\u5c55\u793a\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "He ______ us a video the day before yesterday.",
+    "aZh": "\u4ed6\u524d\u5929\u5411\u6211\u5011\u5c55\u793a\u4e86\u4e00\u90e8\u5f71\u7247\u3002"
+  },
+  {
+    "id": 37,
+    "section": "B",
+    "sectionTitle": "(B) \u5b57\u5c3e\u91cd\u8907 vs \u4e0d\u91cd\u8907",
+    "base": "row",
+    "past": "rowed",
+    "zh": "\u5212\u8239",
+    "qEn": "Where did they ______ the boat last weekend?",
+    "qZh": "\u4ed6\u5011\u4e0a\u9031\u672b\u5728\u54ea\u88e1\u5212\u8239\uff1f",
+    "aEn": "They ______ it on the lake last weekend.",
+    "aZh": "\u4ed6\u5011\u4e0a\u9031\u672b\u5728\u6e56\u4e0a\u5212\u4e86\u5b83\u3002"
+  },
+  {
+    "id": 38,
+    "section": "C",
+    "sectionTitle": "(C) AAA \u8207 ABA \u578b",
+    "base": "cost",
+    "past": "cost",
+    "zh": "\u82b1\u8cbb",
+    "qEn": "How much did the book ______ in 2021?",
+    "qZh": "\u9019\u672c\u66f8 2021 \u5e74\u82b1\u8cbb\u591a\u5c11\u9322\uff1f",
+    "aEn": "It ______ three hundred dollars in 2021.",
+    "aZh": "\u5b83 2021 \u5e74\u82b1\u8cbb\u4e86\u4e09\u767e\u5143\u3002"
+  },
+  {
+    "id": 39,
+    "section": "C",
+    "sectionTitle": "(C) AAA \u8207 ABA \u578b",
+    "base": "cut",
+    "past": "cut",
+    "zh": "\u5207",
+    "qEn": "What did she ______ five minutes ago?",
+    "qZh": "\u5979\u4e94\u5206\u9418\u524d\u5207\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "She ______ an apple into pieces five minutes ago.",
+    "aZh": "\u5979\u4e94\u5206\u9418\u524d\u628a\u4e00\u9846\u860b\u679c\u5207\u6210\u788e\u7247\u3002"
+  },
+  {
+    "id": 40,
+    "section": "C",
+    "sectionTitle": "(C) AAA \u8207 ABA \u578b",
+    "base": "hit",
+    "past": "hit",
+    "zh": "\u6253\u64ca",
+    "qEn": "What did the boy ______ yesterday?",
+    "qZh": "\u7537\u5b69\u6628\u5929\u6253\u64ca\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "He ______ the ball hard yesterday.",
+    "aZh": "\u4ed6\u6628\u5929\u7528\u529b\u6253\u64ca\u4e86\u90a3\u9846\u7403\u3002"
+  },
+  {
+    "id": 41,
+    "section": "C",
+    "sectionTitle": "(C) AAA \u8207 ABA \u578b",
+    "base": "hurt",
+    "past": "hurt",
+    "zh": "\u53d7\u50b7",
+    "qEn": "Where did you ______ yourself last week?",
+    "qZh": "\u4f60\u4e0a\u9031\u5728\u54ea\u88e1\u5f04\u50b7\u81ea\u5df1\uff1f",
+    "aEn": "I ______ my left leg last week.",
+    "aZh": "\u6211\u4e0a\u9031\u5f04\u50b7\u4e86\u6211\u7684\u5de6\u817f\u3002"
+  },
+  {
+    "id": 42,
+    "section": "C",
+    "sectionTitle": "(C) AAA \u8207 ABA \u578b",
+    "base": "let",
+    "past": "let",
+    "zh": "\u8b93",
+    "qEn": "Why did the teacher ______ him go two days ago?",
+    "qZh": "\u8001\u5e2b\u5169\u5929\u524d\u70ba\u4f55\u8b93\u4ed6\u8d70\uff1f",
+    "aEn": "She ______ him go two days ago because he was sick.",
+    "aZh": "\u5979\u5169\u5929\u524d\u8b93\u4ed6\u8d70\u56e0\u70ba\u4ed6\u751f\u75c5\u4e86\u3002"
+  },
+  {
+    "id": 43,
+    "section": "C",
+    "sectionTitle": "(C) AAA \u8207 ABA \u578b",
+    "base": "put",
+    "past": "put",
+    "zh": "\u653e\u7f6e",
+    "qEn": "Where did you ______ my keys last night?",
+    "qZh": "\u4f60\u6628\u665a\u628a\u6211\u7684\u9470\u5319\u653e\u5728\u54ea\u88e1\uff1f",
+    "aEn": "I ______ them on the desk last night.",
+    "aZh": "\u6211\u6628\u665a\u628a\u5b83\u5011\u653e\u5728\u66f8\u684c\u4e0a\u3002"
+  },
+  {
+    "id": 44,
+    "section": "C",
+    "sectionTitle": "(C) AAA \u8207 ABA \u578b",
+    "base": "read",
+    "past": "read",
+    "zh": "\u95b1\u8b80",
+    "qEn": "What did you ______ last weekend?",
+    "qZh": "\u4f60\u4e0a\u9031\u672b\u95b1\u8b80\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "I ______ a good story last weekend.",
+    "aZh": "\u6211\u4e0a\u9031\u672b\u95b1\u8b80\u4e86\u4e00\u500b\u597d\u6545\u4e8b\u3002"
+  },
+  {
+    "id": 45,
+    "section": "C",
+    "sectionTitle": "(C) AAA \u8207 ABA \u578b",
+    "base": "come",
+    "past": "came",
+    "zh": "\u4f86",
+    "qEn": "Why did your uncle ______ the day before yesterday?",
+    "qZh": "\u4f60\u7684\u53d4\u53d4\u524d\u5929\u70ba\u4f55\u4f86\uff1f",
+    "aEn": "He ______ the day before yesterday to visit us.",
+    "aZh": "\u4ed6\u524d\u5929\u4f86\u62dc\u8a2a\u6211\u5011\u3002"
+  },
+  {
+    "id": 46,
+    "section": "C",
+    "sectionTitle": "(C) AAA \u8207 ABA \u578b",
+    "base": "become",
+    "past": "became",
+    "zh": "\u8b8a\u6210",
+    "qEn": "What did the caterpillar ______ two weeks ago?",
+    "qZh": "\u6bdb\u6bdb\u87f2\u5169\u9031\u524d\u8b8a\u6210\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "It ______ a beautiful butterfly two weeks ago.",
+    "aZh": "\u5b83\u5169\u9031\u524d\u8b8a\u6210\u4e86\u4e00\u96bb\u7f8e\u9e97\u7684\u8774\u8776\u3002"
+  },
+  {
+    "id": 47,
+    "section": "C",
+    "sectionTitle": "(C) AAA \u8207 ABA \u578b",
+    "base": "run",
+    "past": "ran",
+    "zh": "\u8dd1",
+    "qEn": "Why did they ______ away an hour ago?",
+    "qZh": "\u4ed6\u5011\u4e00\u5c0f\u6642\u524d\u70ba\u4f55\u8dd1\u8d70\uff1f",
+    "aEn": "They ______ away an hour ago because they saw a snake.",
+    "aZh": "\u4ed6\u5011\u4e00\u5c0f\u6642\u524d\u8dd1\u8d70\u56e0\u70ba\u4ed6\u5011\u770b\u5230\u4e00\u689d\u86c7\u3002"
+  },
+  {
+    "id": 48,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "bring",
+    "past": "brought",
+    "zh": "\u5e36\u4f86",
+    "qEn": "What did you ______ to the party last night?",
+    "qZh": "\u4f60\u6628\u665a\u5e36\u4f86\u4ec0\u9ebc\u53bb\u6d3e\u5c0d\uff1f",
+    "aEn": "I ______ some drinks and food last night.",
+    "aZh": "\u6211\u6628\u665a\u5e36\u4f86\u4e86\u4e00\u4e9b\u98f2\u6599\u548c\u98df\u7269\u3002"
+  },
+  {
+    "id": 49,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "build",
+    "past": "built",
+    "zh": "\u5efa\u9020",
+    "qEn": "What did they ______ in 2020?",
+    "qZh": "\u4ed6\u5011 2020 \u5e74\u5efa\u7bc9\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "They ______ a strong bridge in 2020.",
+    "aZh": "\u4ed6\u5011 2020 \u5e74\u5efa\u7bc9\u4e86\u4e00\u5ea7\u5805\u56fa\u7684\u6a4b\u3002"
+  },
+  {
+    "id": 50,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "buy",
+    "past": "bought",
+    "zh": "\u8cb7",
+    "qEn": "What did she ______ last weekend?",
+    "qZh": "\u5979\u4e0a\u9031\u672b\u8cb7\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "She ______ a new pair of shoes last weekend.",
+    "aZh": "\u5979\u4e0a\u9031\u672b\u8cb7\u4e86\u4e00\u96d9\u65b0\u978b\u3002"
+  },
+  {
+    "id": 51,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "catch",
+    "past": "caught",
+    "zh": "\u6293",
+    "qEn": "How many fish did he ______ two days ago?",
+    "qZh": "\u4ed6\u5169\u5929\u524d\u6293\u5230\u4e86\u591a\u5c11\u9b5a\uff1f",
+    "aEn": "He ______ five fish two days ago.",
+    "aZh": "\u4ed6\u5169\u5929\u524d\u6293\u5230\u4e86\u4e94\u689d\u9b5a\u3002"
+  },
+  {
+    "id": 52,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "dig",
+    "past": "dug",
+    "zh": "\u6316",
+    "qEn": "Why did the dog ______ a hole yesterday?",
+    "qZh": "\u72d7\u6628\u5929\u70ba\u4f55\u6316\u6398\u4e00\u500b\u6d1e\uff1f",
+    "aEn": "It ______ a hole yesterday to hide the bone.",
+    "aZh": "\u5b83\u6628\u5929\u6316\u6398\u4e00\u500b\u6d1e\u4f86\u85cf\u9aa8\u982d\u3002"
+  },
+  {
+    "id": 53,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "feed",
+    "past": "fed",
+    "zh": "\u9935\u990a",
+    "qEn": "What did you ______ the cat three hours ago?",
+    "qZh": "\u4f60\u4e09\u5c0f\u6642\u524d\u9935\u990a\u8c93\u5403\u4ec0\u9ebc\uff1f",
+    "aEn": "I ______ it some fish three hours ago.",
+    "aZh": "\u6211\u4e09\u5c0f\u6642\u524d\u9935\u990a\u5b83\u4e00\u4e9b\u9b5a\u3002"
+  },
+  {
+    "id": 54,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "feel",
+    "past": "felt",
+    "zh": "\u611f\u89ba",
+    "qEn": "How did you ______ during the COVID?",
+    "qZh": "\u4f60\u5728\u65b0\u51a0\u75ab\u60c5\u671f\u9593\u611f\u89ba\u5982\u4f55\uff1f",
+    "aEn": "I ______ very scared during the COVID.",
+    "aZh": "\u6211\u5728\u65b0\u51a0\u75ab\u60c5\u671f\u9593\u611f\u89ba\u5f88\u5bb3\u6015\u3002"
+  },
+  {
+    "id": 55,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "fight",
+    "past": "fought",
+    "zh": "\u6253\u67b6",
+    "qEn": "Why did the boys ______ last Friday?",
+    "qZh": "\u7537\u5b69\u5011\u4e0a\u9031\u4e94\u70ba\u4f55\u6253\u67b6\uff1f",
+    "aEn": "They ______ over a toy last Friday.",
+    "aZh": "\u4ed6\u5011\u4e0a\u9031\u4e94\u70ba\u4e86\u73a9\u5177\u6253\u67b6\u3002"
+  },
+  {
+    "id": 56,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "find",
+    "past": "found",
+    "zh": "\u627e\u5230",
+    "qEn": "Where did you ______ the key the day before yesterday?",
+    "qZh": "\u4f60\u524d\u5929\u5728\u54ea\u88e1\u627e\u5230\u9470\u5319\uff1f",
+    "aEn": "I ______ it under the sofa the day before yesterday.",
+    "aZh": "\u6211\u524d\u5929\u5728\u6c99\u767c\u4e0b\u627e\u5230\u5b83\u3002"
+  },
+  {
+    "id": 57,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "have",
+    "past": "had",
+    "zh": "\u64c1\u6709",
+    "qEn": "What did you ______ for lunch yesterday?",
+    "qZh": "\u4f60\u6628\u5929\u5348\u9910\u5403\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "I ______ a sandwich yesterday.",
+    "aZh": "\u6211\u6628\u5929\u5403\u4e86\u4e00\u500b\u4e09\u660e\u6cbb\u3002"
+  },
+  {
+    "id": 58,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "hear",
+    "past": "heard",
+    "zh": "\u807d\u898b",
+    "qEn": "What did she ______ last night?",
+    "qZh": "\u5979\u6628\u665a\u807d\u898b\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "She ______ a loud noise last night.",
+    "aZh": "\u5979\u6628\u665a\u807d\u898b\u4e86\u4e00\u500b\u5de8\u5927\u7684\u566a\u97f3\u3002"
+  },
+  {
+    "id": 59,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "hold",
+    "past": "held",
+    "zh": "\u63e1\u4f4f",
+    "qEn": "What did he ______ in his hand ten minutes ago?",
+    "qZh": "\u4ed6\u5341\u5206\u9418\u524d\u624b\u88e1\u62ff\u8457\u4ec0\u9ebc\uff1f",
+    "aEn": "He ______ a red pen ten minutes ago.",
+    "aZh": "\u4ed6\u5341\u5206\u9418\u524d\u62ff\u8457\u4e00\u679d\u7d05\u7b46\u3002"
+  },
+  {
+    "id": 60,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "keep",
+    "past": "kept",
+    "zh": "\u4fdd\u7559",
+    "qEn": "Where did you ______ the money last month?",
+    "qZh": "\u4f60\u4e0a\u500b\u6708\u628a\u9322\u4fdd\u7559\u5728\u54ea\u88e1\uff1f",
+    "aEn": "I ______ it in the bank last month.",
+    "aZh": "\u6211\u4e0a\u500b\u6708\u628a\u5b83\u4fdd\u7559\u5728\u9280\u884c\u88e1\u3002"
+  },
+  {
+    "id": 61,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "leave",
+    "past": "left",
+    "zh": "\u96e2\u958b",
+    "qEn": "Why did they ______ ten minutes ago?",
+    "qZh": "\u4ed6\u5011\u5341\u5206\u9418\u524d\u70ba\u4f55\u96e2\u958b\uff1f",
+    "aEn": "They ______ ten minutes ago to catch the train.",
+    "aZh": "\u4ed6\u5011\u5341\u5206\u9418\u524d\u96e2\u958b\u53bb\u8d95\u706b\u8eca\u3002"
+  },
+  {
+    "id": 62,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "lose",
+    "past": "lost",
+    "zh": "\u907a\u5931",
+    "qEn": "Where did you ______ your watch last week?",
+    "qZh": "\u4f60\u4e0a\u9031\u5728\u54ea\u88e1\u907a\u5931\u4f60\u7684\u624b\u9336\uff1f",
+    "aEn": "I ______ it in the park last week.",
+    "aZh": "\u6211\u4e0a\u9031\u5728\u516c\u5712\u88e1\u907a\u5931\u4e86\u5b83\u3002"
+  },
+  {
+    "id": 63,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "make",
+    "past": "made",
+    "zh": "\u88fd\u4f5c",
+    "qEn": "What did your mom ______ yesterday?",
+    "qZh": "\u4f60\u5abd\u5abd\u6628\u5929\u88fd\u4f5c\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "She ______ a chocolate cake yesterday.",
+    "aZh": "\u5979\u6628\u5929\u88fd\u4f5c\u4e86\u4e00\u500b\u5de7\u514b\u529b\u86cb\u7cd5\u3002"
+  },
+  {
+    "id": 64,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "meet",
+    "past": "met",
+    "zh": "\u9047\u898b",
+    "qEn": "Who did you ______ the day before yesterday?",
+    "qZh": "\u4f60\u524d\u5929\u9047\u898b\u4e86\u8ab0\uff1f",
+    "aEn": "I ______ my old teacher the day before yesterday.",
+    "aZh": "\u6211\u524d\u5929\u9047\u898b\u4e86\u6211\u7684\u820a\u8001\u5e2b\u3002"
+  },
+  {
+    "id": 65,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "pay",
+    "past": "paid",
+    "zh": "\u4ed8\u8cbb",
+    "qEn": "How much did you ______ last Sunday?",
+    "qZh": "\u4f60\u4e0a\u9031\u65e5\u4ed8\u8cbb\u4e86\u591a\u5c11\uff1f",
+    "aEn": "I ______ fifty dollars last Sunday.",
+    "aZh": "\u6211\u4e0a\u9031\u65e5\u4ed8\u8cbb\u4e86\u4e94\u5341\u5143\u3002"
+  },
+  {
+    "id": 66,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "say",
+    "past": "said",
+    "zh": "\u8aaa",
+    "qEn": "What did he ______ to you an hour ago?",
+    "qZh": "\u4ed6\u4e00\u5c0f\u6642\u524d\u5c0d\u4f60\u8aaa\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "He ______ nothing to me an hour ago.",
+    "aZh": "\u4ed6\u4e00\u5c0f\u6642\u524d\u5c0d\u6211\u4ec0\u9ebc\u4e5f\u6c92\u8aaa\u3002"
+  },
+  {
+    "id": 67,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "sell",
+    "past": "sold",
+    "zh": "\u8ce3",
+    "qEn": "What did they ______ in 2020?",
+    "qZh": "\u4ed6\u5011 2020 \u5e74\u8ce3\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "They ______ their old car in 2020.",
+    "aZh": "\u4ed6\u5011 2020 \u5e74\u8ce3\u4e86\u4ed6\u5011\u7684\u820a\u8eca\u3002"
+  },
+  {
+    "id": 68,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "send",
+    "past": "sent",
+    "zh": "\u5bc4\u9001",
+    "qEn": "Who did you ______ the email to last night?",
+    "qZh": "\u4f60\u6628\u665a\u5bc4\u96fb\u5b50\u90f5\u4ef6\u7d66\u8ab0\uff1f",
+    "aEn": "I ______ it to my boss last night.",
+    "aZh": "\u6211\u6628\u665a\u628a\u5b83\u5bc4\u7d66\u6211\u7684\u8001\u95c6\u3002"
+  },
+  {
+    "id": 69,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "sit",
+    "past": "sat",
+    "zh": "\u5750",
+    "qEn": "Where did you ______ two hours ago?",
+    "qZh": "\u4f60\u5169\u5c0f\u6642\u524d\u5750\u5728\u54ea\u88e1\uff1f",
+    "aEn": "I ______ next to the window two hours ago.",
+    "aZh": "\u6211\u5169\u5c0f\u6642\u524d\u5750\u5728\u7a97\u6236\u65c1\u908a\u3002"
+  },
+  {
+    "id": 70,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "sleep",
+    "past": "slept",
+    "zh": "\u7761\u89ba",
+    "qEn": "How long did you ______ last night?",
+    "qZh": "\u4f60\u6628\u665a\u7761\u89ba\u4e86\u591a\u4e45\uff1f",
+    "aEn": "I ______ for eight hours last night.",
+    "aZh": "\u6211\u6628\u665a\u7761\u89ba\u4e86\u516b\u5c0f\u6642\u3002"
+  },
+  {
+    "id": 71,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "spend",
+    "past": "spent",
+    "zh": "\u82b1\u8cbb",
+    "qEn": "How much time did you ______ yesterday?",
+    "qZh": "\u4f60\u6628\u5929\u82b1\u8cbb\u591a\u5c11\u6642\u9593\uff1f",
+    "aEn": "I ______ two hours reading yesterday.",
+    "aZh": "\u6211\u6628\u5929\u82b1\u8cbb\u5169\u5c0f\u6642\u95b1\u8b80\u3002"
+  },
+  {
+    "id": 72,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "stand",
+    "past": "stood",
+    "zh": "\u7ad9\u7acb",
+    "qEn": "Where did he ______ ten minutes ago?",
+    "qZh": "\u4ed6\u5341\u5206\u9418\u524d\u7ad9\u5728\u54ea\u88e1\uff1f",
+    "aEn": "He ______ at the door ten minutes ago.",
+    "aZh": "\u4ed6\u5341\u5206\u9418\u524d\u7ad9\u5728\u9580\u53e3\u3002"
+  },
+  {
+    "id": 73,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "teach",
+    "past": "taught",
+    "zh": "\u6559\u5c0e",
+    "qEn": "What did she ______ last year?",
+    "qZh": "\u5979\u53bb\u5e74\u6559\u5c0e\u4ec0\u9ebc\uff1f",
+    "aEn": "She ______ us English last year.",
+    "aZh": "\u5979\u53bb\u5e74\u6559\u5c0e\u6211\u5011\u82f1\u6587\u3002"
+  },
+  {
+    "id": 74,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "tell",
+    "past": "told",
+    "zh": "\u544a\u8a34",
+    "qEn": "What did you ______ him the day before yesterday?",
+    "qZh": "\u4f60\u524d\u5929\u544a\u8a34\u4ed6\u4ec0\u9ebc\uff1f",
+    "aEn": "I ______ him the truth the day before yesterday.",
+    "aZh": "\u6211\u524d\u5929\u544a\u8a34\u4ed6\u771f\u76f8\u3002"
+  },
+  {
+    "id": 75,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "think",
+    "past": "thought",
+    "zh": "\u601d\u8003",
+    "qEn": "What did you ______ about it last week?",
+    "qZh": "\u4f60\u4e0a\u9031\u601d\u8003\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "I ______ it was a good idea last week.",
+    "aZh": "\u6211\u4e0a\u9031\u8a8d\u70ba\u90a3\u662f\u500b\u597d\u9ede\u5b50\u3002"
+  },
+  {
+    "id": 76,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "win",
+    "past": "won",
+    "zh": "\u8d0f",
+    "qEn": "Who did ______ the game yesterday?",
+    "qZh": "\u8ab0\u6628\u5929\u8d0f\u4e86\u9019\u5834\u6bd4\u8cfd\uff1f",
+    "aEn": "Our team ______ the game yesterday.",
+    "aZh": "\u6211\u5011\u7684\u968a\u4f0d\u6628\u5929\u8d0f\u4e86\u9019\u5834\u6bd4\u8cfd\u3002"
+  },
+  {
+    "id": 77,
+    "section": "D",
+    "sectionTitle": "(D) ABB \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "mean",
+    "past": "meant",
+    "zh": "\u610f\u6307",
+    "qEn": "What did that sign ______ in 2019?",
+    "qZh": "\u90a3\u500b\u6a19\u8a8c 2019 \u5e74\u610f\u6307\u4ec0\u9ebc\uff1f",
+    "aEn": "It ______ we should stop in 2019.",
+    "aZh": "\u5b83 2019 \u5e74\u610f\u6307\u6211\u5011\u61c9\u8a72\u505c\u6b62\u3002"
+  },
+  {
+    "id": 78,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "bite",
+    "past": "bit",
+    "zh": "\u54ac",
+    "qEn": "Why did the dog ______ you yesterday?",
+    "qZh": "\u90a3\u96bb\u72d7\u6628\u5929\u70ba\u4f55\u54ac\u4f60\uff1f",
+    "aEn": "It ______ me yesterday because I touched its food.",
+    "aZh": "\u5b83\u6628\u5929\u54ac\u6211\u56e0\u70ba\u6211\u78b0\u4e86\u5b83\u7684\u98df\u7269\u3002"
+  },
+  {
+    "id": 79,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "blow",
+    "past": "blew",
+    "zh": "\u5439",
+    "qEn": "How hard did the wind ______ last night?",
+    "qZh": "\u98a8\u6628\u665a\u5439\u5f97\u591a\u5f37\u70c8\uff1f",
+    "aEn": "It ______ very hard last night.",
+    "aZh": "\u5b83\u6628\u665a\u5439\u5f97\u975e\u5e38\u5f37\u70c8\u3002"
+  },
+  {
+    "id": 80,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "break",
+    "past": "broke",
+    "zh": "\u6253\u7834",
+    "qEn": "What did the boy ______ two days ago?",
+    "qZh": "\u7537\u5b69\u5169\u5929\u524d\u6253\u7834\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "He ______ the window two days ago.",
+    "aZh": "\u4ed6\u5169\u5929\u524d\u6253\u7834\u4e86\u7a97\u6236\u3002"
+  },
+  {
+    "id": 81,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "choose",
+    "past": "chose",
+    "zh": "\u9078\u64c7",
+    "qEn": "Which color did you ______ yesterday?",
+    "qZh": "\u4f60\u6628\u5929\u9078\u64c7\u4e86\u54ea\u7a2e\u984f\u8272\uff1f",
+    "aEn": "I ______ the blue one yesterday.",
+    "aZh": "\u6211\u6628\u5929\u9078\u64c7\u4e86\u85cd\u8272\u7684\u90a3\u500b\u3002"
+  },
+  {
+    "id": 82,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "do",
+    "past": "did",
+    "zh": "\u505a",
+    "qEn": "What did you ______ yesterday?",
+    "qZh": "\u4f60\u6628\u5929\u505a\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "I ______ my homework yesterday.",
+    "aZh": "\u6211\u6628\u5929\u505a\u4e86\u6211\u7684\u529f\u8ab2\u3002"
+  },
+  {
+    "id": 83,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "draw",
+    "past": "drew",
+    "zh": "\u756b",
+    "qEn": "What did she ______ last week?",
+    "qZh": "\u5979\u4e0a\u9031\u756b\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "She ______ a picture of a cat last week.",
+    "aZh": "\u5979\u4e0a\u9031\u756b\u4e86\u4e00\u5f35\u8c93\u7684\u5716\u7247\u3002"
+  },
+  {
+    "id": 84,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "drink",
+    "past": "drank",
+    "zh": "\u559d",
+    "qEn": "What did he ______ this morning?",
+    "qZh": "\u4ed6\u4eca\u5929\u65e9\u4e0a\u559d\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "He ______ a glass of milk this morning.",
+    "aZh": "\u4ed6\u4eca\u5929\u65e9\u4e0a\u559d\u4e86\u4e00\u676f\u725b\u5976\u3002"
+  },
+  {
+    "id": 85,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "drive",
+    "past": "drove",
+    "zh": "\u958b\u8eca",
+    "qEn": "Where did you ______ last weekend?",
+    "qZh": "\u4f60\u4e0a\u9031\u672b\u958b\u8eca\u53bb\u54ea\u88e1\uff1f",
+    "aEn": "I ______ to the supermarket last weekend.",
+    "aZh": "\u6211\u4e0a\u9031\u672b\u958b\u8eca\u53bb\u8d85\u5e02\u3002"
+  },
+  {
+    "id": 86,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "eat",
+    "past": "ate",
+    "zh": "\u5403",
+    "qEn": "What did they ______ for dinner last night?",
+    "qZh": "\u4ed6\u5011\u6628\u665a\u665a\u9910\u5403\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "They ______ pizza last night.",
+    "aZh": "\u4ed6\u5011\u6628\u665a\u5403\u4e86\u62ab\u85a9\u3002"
+  },
+  {
+    "id": 87,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "fall",
+    "past": "fell",
+    "zh": "\u8dcc\u5012",
+    "qEn": "Why did he ______ down an hour ago?",
+    "qZh": "\u4ed6\u4e00\u5c0f\u6642\u524d\u70ba\u4f55\u8dcc\u5012\uff1f",
+    "aEn": "He ______ an hour ago because the floor was wet.",
+    "aZh": "\u4ed6\u4e00\u5c0f\u6642\u524d\u8dcc\u5012\u56e0\u70ba\u5730\u677f\u662f\u6fd5\u7684\u3002"
+  },
+  {
+    "id": 88,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "fly",
+    "past": "flew",
+    "zh": "\u98db",
+    "qEn": "Where did the bird ______ a few minutes ago?",
+    "qZh": "\u90a3\u96bb\u9ce5\u5e7e\u5206\u9418\u524d\u98db\u53bb\u54ea\u88e1\uff1f",
+    "aEn": "It ______ away a few minutes ago.",
+    "aZh": "\u5b83\u5e7e\u5206\u9418\u524d\u98db\u8d70\u4e86\u3002"
+  },
+  {
+    "id": 89,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "get",
+    "past": "got",
+    "zh": "\u5f97\u5230",
+    "qEn": "What did you ______ for your birthday last year?",
+    "qZh": "\u4f60\u53bb\u5e74\u751f\u65e5\u5f97\u5230\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "I ______ a new bicycle last year.",
+    "aZh": "\u6211\u53bb\u5e74\u5f97\u5230\u4e86\u4e00\u53f0\u65b0\u8173\u8e0f\u8eca\u3002"
+  },
+  {
+    "id": 90,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "give",
+    "past": "gave",
+    "zh": "\u7d66\u4e88",
+    "qEn": "What did he ______ you the day before yesterday?",
+    "qZh": "\u4ed6\u524d\u5929\u7d66\u4e86\u4f60\u4ec0\u9ebc\uff1f",
+    "aEn": "He ______ me a present the day before yesterday.",
+    "aZh": "\u4ed6\u524d\u5929\u7d66\u4e86\u6211\u4e00\u500b\u79ae\u7269\u3002"
+  },
+  {
+    "id": 91,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "go",
+    "past": "went",
+    "zh": "\u53bb",
+    "qEn": "Where did you ______ yesterday?",
+    "qZh": "\u4f60\u6628\u5929\u53bb\u54ea\u88e1\uff1f",
+    "aEn": "I ______ to the movie theater yesterday.",
+    "aZh": "\u6211\u6628\u5929\u53bb\u4e86\u96fb\u5f71\u9662\u3002"
+  },
+  {
+    "id": 92,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "grow",
+    "past": "grew",
+    "zh": "\u6210\u9577",
+    "qEn": "How fast did the plant ______ last month?",
+    "qZh": "\u9019\u682a\u690d\u7269\u4e0a\u500b\u6708\u6210\u9577\u5f97\u591a\u5feb\uff1f",
+    "aEn": "It ______ very fast last month.",
+    "aZh": "\u5b83\u4e0a\u500b\u6708\u6210\u9577\u5f97\u975e\u5e38\u5feb\u3002"
+  },
+  {
+    "id": 93,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "hide",
+    "past": "hid",
+    "zh": "\u8eb2\u85cf",
+    "qEn": "Where did the boy ______ two hours ago?",
+    "qZh": "\u7537\u5b69\u5169\u5c0f\u6642\u524d\u85cf\u5728\u54ea\u88e1\uff1f",
+    "aEn": "He ______ behind the door two hours ago.",
+    "aZh": "\u4ed6\u5169\u5c0f\u6642\u524d\u85cf\u5728\u9580\u5f8c\u3002"
+  },
+  {
+    "id": 94,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "ride",
+    "past": "rode",
+    "zh": "\u9a0e",
+    "qEn": "What did she ______ last Sunday?",
+    "qZh": "\u5979\u4e0a\u9031\u65e5\u9a0e\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "She ______ a white horse last Sunday.",
+    "aZh": "\u5979\u4e0a\u9031\u65e5\u9a0e\u4e86\u4e00\u5339\u767d\u99ac\u3002"
+  },
+  {
+    "id": 95,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "see",
+    "past": "saw",
+    "zh": "\u770b\u898b",
+    "qEn": "What did you ______ last night?",
+    "qZh": "\u4f60\u6628\u665a\u770b\u898b\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "I ______ a shooting star last night.",
+    "aZh": "\u6211\u6628\u665a\u770b\u898b\u4e86\u4e00\u9846\u6d41\u661f\u3002"
+  },
+  {
+    "id": 96,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "shake",
+    "past": "shook",
+    "zh": "\u6416\u52d5",
+    "qEn": "Why did he ______ the bottle ten minutes ago?",
+    "qZh": "\u4ed6\u5341\u5206\u9418\u524d\u70ba\u4f55\u6416\u52d5\u74f6\u5b50\uff1f",
+    "aEn": "He ______ it ten minutes ago to mix the juice.",
+    "aZh": "\u4ed6\u5341\u5206\u9418\u524d\u6416\u52d5\u5b83\u4f86\u6df7\u5408\u679c\u6c41\u3002"
+  },
+  {
+    "id": 97,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "show",
+    "past": "showed",
+    "zh": "\u5c55\u793a",
+    "qEn": "What did you ______ them yesterday?",
+    "qZh": "\u4f60\u6628\u5929\u79c0\u51fa\u4ec0\u9ebc\u7d66\u4ed6\u5011\u770b\uff1f",
+    "aEn": "I ______ them my new watch yesterday.",
+    "aZh": "\u6211\u6628\u5929\u79c0\u51fa\u6211\u7684\u65b0\u624b\u9336\u7d66\u4ed6\u5011\u770b\u3002"
+  },
+  {
+    "id": 98,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "sing",
+    "past": "sang",
+    "zh": "\u5531\u6b4c",
+    "qEn": "What song did she ______ last night?",
+    "qZh": "\u5979\u6628\u665a\u5531\u4e86\u4ec0\u9ebc\u6b4c\uff1f",
+    "aEn": "She ______ an English song last night.",
+    "aZh": "\u5979\u6628\u665a\u5531\u4e86\u4e00\u9996\u82f1\u6587\u6b4c\u3002"
+  },
+  {
+    "id": 99,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "speak",
+    "past": "spoke",
+    "zh": "\u8aaa\u8a71",
+    "qEn": "Who did you ______ to during the COVID?",
+    "qZh": "\u4f60\u5728\u65b0\u51a0\u75ab\u60c5\u671f\u9593\u548c\u8ab0\u8aaa\u8a71\uff1f",
+    "aEn": "I ______ to the manager during the COVID.",
+    "aZh": "\u6211\u5728\u65b0\u51a0\u75ab\u60c5\u671f\u9593\u548c\u7d93\u7406\u8aaa\u8a71\u3002"
+  },
+  {
+    "id": 100,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "swim",
+    "past": "swam",
+    "zh": "\u6e38\u6cf3",
+    "qEn": "Where did they ______ last summer?",
+    "qZh": "\u4ed6\u5011\u53bb\u5e74\u590f\u5929\u5728\u54ea\u88e1\u6e38\u6cf3\uff1f",
+    "aEn": "They ______ in the pool last summer.",
+    "aZh": "\u4ed6\u5011\u53bb\u5e74\u590f\u5929\u5728\u6cf3\u6c60\u88e1\u6e38\u6cf3\u3002"
+  },
+  {
+    "id": 101,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "take",
+    "past": "took",
+    "zh": "\u62ff",
+    "qEn": "What did you ______ yesterday?",
+    "qZh": "\u4f60\u6628\u5929\u62ff\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "I ______ an umbrella yesterday.",
+    "aZh": "\u6211\u6628\u5929\u62ff\u4e86\u4e00\u628a\u5098\u3002"
+  },
+  {
+    "id": 102,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "throw",
+    "past": "threw",
+    "zh": "\u4e1f",
+    "qEn": "Who did you ______ the ball to an hour ago?",
+    "qZh": "\u4f60\u4e00\u5c0f\u6642\u524d\u628a\u7403\u4e1f\u7d66\u8ab0\uff1f",
+    "aEn": "I ______ it to my dog an hour ago.",
+    "aZh": "\u6211\u4e00\u5c0f\u6642\u524d\u628a\u5b83\u4e1f\u7d66\u6211\u7684\u72d7\u3002"
+  },
+  {
+    "id": 103,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "wake",
+    "past": "woke",
+    "zh": "\u9192\u4f86",
+    "qEn": "Why did you ______ up so early yesterday?",
+    "qZh": "\u4f60\u6628\u5929\u70ba\u4f55\u9019\u9ebc\u65e9\u9192\u4f86\uff1f",
+    "aEn": "I ______ up early yesterday to study.",
+    "aZh": "\u6211\u6628\u5929\u65e9\u8d77\u70ba\u4e86\u8b80\u66f8\u3002"
+  },
+  {
+    "id": 104,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "wear",
+    "past": "wore",
+    "zh": "\u7a7f\u6234",
+    "qEn": "What did she ______ to the party last night?",
+    "qZh": "\u5979\u6628\u665a\u7a7f\u6234\u4e86\u4ec0\u9ebc\u53bb\u6d3e\u5c0d\uff1f",
+    "aEn": "She ______ a red dress last night.",
+    "aZh": "\u5979\u6628\u665a\u7a7f\u4e86\u4e00\u4ef6\u7d05\u8272\u7684\u6d0b\u88dd\u3002"
+  },
+  {
+    "id": 105,
+    "section": "E",
+    "sectionTitle": "(E) ABC \u578b\u4e0d\u898f\u5247\u52d5\u8a5e",
+    "base": "write",
+    "past": "wrote",
+    "zh": "\u5beb",
+    "qEn": "What did he ______ the day before yesterday?",
+    "qZh": "\u4ed6\u524d\u5929\u5beb\u4e86\u4ec0\u9ebc\uff1f",
+    "aEn": "He ______ a letter to his friend the day before yesterday.",
+    "aZh": "\u4ed6\u524d\u5929\u5beb\u4e86\u4e00\u5c01\u4fe1\u7d66\u4ed6\u7684\u670b\u53cb\u3002"
+  }
+];
+      const sections = [
+        { key:"A", title:"(A) 字尾 y 變化型", desc:"子音 + y 去 y 加 ied；母音 + y 直接加 ed" },
+        { key:"B", title:"(B) 字尾重複 vs 不重複", desc:"單音節短母音重複字尾；w / x 或非字尾重音不重複" },
+        { key:"C", title:"(C) AAA 與 ABA 型", desc:"三態同形與原形、過去分詞同形" },
+        { key:"D", title:"(D) ABB 型不規則動詞", desc:"過去式與過去分詞同形，大量必考單字" },
+        { key:"E", title:"(E) ABC 型不規則動詞", desc:"原形、過去式、過去分詞皆不同" }
+      ];
+      const state = { section:null, questions:[], index:0, correct:0, answers:[], checked:false };
+      const $ = (id) => document.getElementById(id);
+      const clean = (value) => value.trim().toLowerCase().replace(/[.?!,;:'"\s]/g, "");
+      const shuffle = (items) => [...items].sort(() => Math.random() - 0.5);
+      function countFor(key) { return QUIZ_DATA.filter((item) => item.section === key).length; }
+      function renderSections() {
+        $("sectionGrid").innerHTML = sections.map((section) => `<button class="section-card" type="button" data-section="${section.key}"><div><div class="card-icon">□</div><h2>${section.title}</h2><p>${section.desc}</p></div><div class="card-foot"><span>${countFor(section.key)} 題挑戰</span><span>&gt;</span></div></button>`).join("");
+        document.querySelectorAll(".section-card").forEach((button) => button.addEventListener("click", () => startSection(button.dataset.section)));
+      }
+      function startSection(key) {
+        const name = $("studentName").value.trim();
+        if (!name) { $("studentName").focus(); $("studentName").placeholder = "Please type your name first"; return; }
+        state.section = key; state.questions = shuffle(QUIZ_DATA.filter((item) => item.section === key)); state.index = 0; state.correct = 0; state.answers = []; state.checked = false;
+        $("home").style.display = "none"; $("quizShell").classList.add("active"); $("resultCard").classList.remove("active"); document.querySelector(".question-card").style.display = "block"; renderQuestion();
+      }
+      function fillSentence(container, sentence, inputId) {
+        const parts = sentence.split("______"); container.innerHTML = ""; container.append(document.createTextNode(parts[0] || ""));
+        const input = document.createElement("input"); input.id = inputId; input.className = "blank"; input.autocomplete = "off"; input.autocapitalize = "none"; input.spellcheck = false; container.append(input); container.append(document.createTextNode(parts.slice(1).join("______") || ""));
+      }
+      function renderQuestion() {
+        const item = state.questions[state.index]; state.checked = false; $("quizTitle").textContent = item.sectionTitle; $("quizMeta").textContent = `${$("studentName").value.trim()} | Verb ${item.id}`; $("questionCount").textContent = `${state.index + 1}/${state.questions.length}`; $("scoreCount").textContent = `Correct ${state.correct}`; $("progressBar").style.width = `${(state.index / state.questions.length) * 100}%`; $("verbTag").textContent = `詞彙：${item.base} (${item.zh})`;
+        fillSentence($("qSentence"), item.qEn, "qInput"); fillSentence($("aSentence"), item.aEn, "aInput"); $("qZh").textContent = item.qZh; $("aZh").textContent = item.aZh; $("feedback").className = "feedback"; $("feedback").textContent = "填完兩格後按「檢查答案」。"; $("checkBtn").disabled = false; $("nextBtn").disabled = true; $("listenQBtn").disabled = true; $("listenABtn").disabled = true; $("qInput").focus();
+        ["qInput","aInput"].forEach((id) => $(id).addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); state.checked ? nextQuestion() : checkAnswer(); } }));
+      }
+      function currentFilled(type) { const item = state.questions[state.index]; return type === "q" ? item.qEn.replace("______", item.base) : item.aEn.replace("______", item.past); }
+      function checkAnswer() {
+        if (state.checked) return; const item = state.questions[state.index]; const qInput = $("qInput"); const aInput = $("aInput"); const qOk = clean(qInput.value) === clean(item.base); const aOk = clean(aInput.value) === clean(item.past); qInput.classList.add(qOk ? "correct" : "wrong"); aInput.classList.add(aOk ? "correct" : "wrong"); qInput.disabled = true; aInput.disabled = true; state.checked = true; const allOk = qOk && aOk; if (allOk) state.correct += 1; state.answers.push({ ...item, qAnswer:qInput.value, aAnswer:aInput.value, correct:allOk }); $("scoreCount").textContent = `Correct ${state.correct}`; $("feedback").className = allOk ? "feedback good" : "feedback bad"; $("feedback").textContent = allOk ? `Correct. ${item.base} -> ${item.past}` : `Answer: WH question = ${item.base}; answer sentence = ${item.past}`; $("checkBtn").disabled = true; $("nextBtn").disabled = false; $("listenQBtn").disabled = false; $("listenABtn").disabled = false;
+      }
+      function speak(text) {
+        if (!("speechSynthesis" in window)) return; window.speechSynthesis.cancel(); const utterance = new SpeechSynthesisUtterance(text); utterance.lang = "en-US"; utterance.rate = 0.86; const voices = window.speechSynthesis.getVoices(); const usVoice = voices.find((voice) => voice.lang === "en-US") || voices.find((voice) => voice.lang.startsWith("en")); if (usVoice) utterance.voice = usVoice; window.speechSynthesis.speak(utterance);
+      }
+      function nextQuestion() { if (!state.checked) return; if (state.index < state.questions.length - 1) { state.index += 1; renderQuestion(); } else { finishQuiz(); } }
+      function finishQuiz() {
+        $("progressBar").style.width = "100%"; const percent = Math.round((state.correct / state.questions.length) * 100); const wrong = state.answers.filter((item) => !item.correct); $("resultScore").textContent = `${percent}%`; $("resultDetail").textContent = `${$("studentName").value.trim()} got ${state.correct} out of ${state.questions.length} correct.`; $("wrongList").innerHTML = wrong.length ? wrong.map((item) => `<span>${item.base} -> ${item.past}</span>`).join("") : '<span style="background:var(--good-soft);color:var(--good)">All correct</span>'; $("submitStatus").textContent = `Ready to submit to spreadsheet ${SHEET_ID}.`; $("resultCard").classList.add("active"); document.querySelector(".question-card").style.display = "none";
+      }
+      async function submitResult() {
+        const percent = Math.round((state.correct / state.questions.length) * 100); const wrongVerbs = state.answers.filter((item) => !item.correct).map((item) => `${item.base}-${item.past}`).join(", "); const payload = { studentName:$("studentName").value.trim(), sectionTested:state.questions[0]?.sectionTitle || "", percentage:`${percent}%`, wrongVerbs }; $("submitStatus").textContent = "Submitting...";
+        try { await fetch(APPS_SCRIPT_URL, { method:"POST", mode:"no-cors", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body:JSON.stringify(payload) }); $("submitStatus").textContent = "Submitted. Please check the quiz result tab in the spreadsheet."; } catch (error) { $("submitStatus").textContent = "Submission failed. Check the Apps Script deployment URL and permissions."; }
+      }
+      function showHome() { $("quizShell").classList.remove("active"); $("home").style.display = "block"; document.querySelector(".question-card").style.display = "block"; $("resultCard").classList.remove("active"); }
+      $("checkBtn").addEventListener("click", checkAnswer); $("nextBtn").addEventListener("click", nextQuestion); $("listenQBtn").addEventListener("click", () => speak(currentFilled("q"))); $("listenABtn").addEventListener("click", () => speak(currentFilled("a"))); $("submitBtn").addEventListener("click", submitResult); $("retryBtn").addEventListener("click", () => startSection(state.section)); $("homeBtn").addEventListener("click", showHome); $("backBtn").addEventListener("click", showHome);
+      renderSections();
+    </script>
+  </body>
+</html>
